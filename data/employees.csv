@@ -1,0 +1,12 @@
+emp_id,emp_name,department,salary,joining_date
+101,John Smith,IT,75000,2023-01-10
+102,Emma Wilson,HR,60000,2022-05-15
+103,Michael Brown,Finance,85000,2021-11-20
+104,Sophia Davis,IT,,2024-02-01
+105,James Miller,Sales,55000,2023-07-18
+106,Olivia Garcia,HR,62000,2022-09-25
+107,Liam Martinez,Finance,90000,2021-06-12
+108,Ava Rodriguez,IT,78000,2023-03-30
+109,Noah Hernandez,Sales,,2024-01-05
+110,Isabella Lopez,HR,65000,2022-12-10
+110,Isabella Lopez,HR,65000,2022-12-10
