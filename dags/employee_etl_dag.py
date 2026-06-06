@@ -1,16 +1,27 @@
-from datetime import datetime
-
 from airflow import DAG
 from airflow.operators.bash import BashOperator
+from datetime import datetime
 
 with DAG(
     dag_id="employee_etl_pipeline",
     start_date=datetime(2025, 1, 1),
-    schedule=None,
+    schedule="@daily",
     catchup=False,
 ) as dag:
 
-    test_task = BashOperator(
-        task_id="test_task",
-        bash_command="echo 'Airflow DAG Working Successfully'"
+    extract = BashOperator(
+        task_id="extract",
+        bash_command="echo Extracting Data"
     )
+
+    transform = BashOperator(
+        task_id="transform",
+        bash_command="echo Transforming Data"
+    )
+
+    load = BashOperator(
+        task_id="load",
+        bash_command="echo Loading Data"
+    )
+
+    extract >> transform >> load
