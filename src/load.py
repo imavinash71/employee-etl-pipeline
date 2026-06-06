@@ -4,40 +4,48 @@ import pandas as pd
 
 def load_data(df, config, logger):
 
-    connection_string = (
-        f"postgresql://{config['user']}:{config['password']}"
-        f"@{config['host']}:{config['port']}/{config['database']}"
-    )
+    try:
 
-    engine = create_engine(connection_string)
+        connection_string = (
+            f"postgresql://{config['user']}:{config['password']}"
+            f"@{config['host']}:{config['port']}/{config['database']}"
+        )
 
-    existing_df = pd.read_sql(
-        "SELECT emp_id FROM employees",
-        engine
-    )
+        engine = create_engine(connection_string)
 
-    existing_ids = set(existing_df["emp_id"])
+        existing_df = pd.read_sql(
+            "SELECT emp_id FROM employees",
+            engine
+        )
 
-    new_df = df[
-        ~df["emp_id"].isin(existing_ids)
-    ]
+        existing_ids = set(existing_df["emp_id"])
 
-    if new_df.empty:
-        logger.info("No new records found")
-        print("No new records found")
-        return
+        new_df = df[
+            ~df["emp_id"].isin(existing_ids)
+        ]
 
-    new_df.to_sql(
-        "employees",
-        engine,
-        if_exists="append",
-        index=False
-    )
+        if new_df.empty:
+            logger.info("No new records found")
+            print("No new records found")
+            return
 
-    logger.info(
-        f"Loaded {len(new_df)} new records"
-    )
+        new_df.to_sql(
+            "employees",
+            engine,
+            if_exists="append",
+            index=False
+        )
 
-    print(
-        f"Loaded {len(new_df)} new records"
-    )
+        logger.info(
+            f"Loaded {len(new_df)} new records"
+        )
+
+        print(
+            f"Loaded {len(new_df)} new records"
+        )
+
+    except Exception as e:
+        logger.error(
+            f"Error during loading: {e}"
+        )
+        raise
