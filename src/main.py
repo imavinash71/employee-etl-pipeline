@@ -1,5 +1,7 @@
 from extract import extract_data
 from transform import transform_data
+from load import load_data
+from config import DB_CONFIG
 
 
 def main():
@@ -9,11 +11,7 @@ def main():
 
     df = transform_data(df)
 
-    print("\nFinal Data")
-
-    print(df)
-
-    print("\nTotal Records After Cleaning:", len(df))
+    load_data(df, DB_CONFIG)
 
 
 if __name__ == "__main__":
