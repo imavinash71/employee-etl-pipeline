@@ -1,14 +1,13 @@
 import pandas as pd
 
 
-def extract_data(file_path):
+def extract_data(file_path, logger):
     """
     Read data from CSV file.
     """
 
     df = pd.read_csv(file_path)
 
-    print("\nData Extracted Successfully")
-    print(df.head())
+    logger.info(f"Extracted {len(df)} records from CSV")
 
     return df

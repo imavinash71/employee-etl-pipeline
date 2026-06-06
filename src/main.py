@@ -2,16 +2,20 @@ from extract import extract_data
 from transform import transform_data
 from load import load_data
 from config import DB_CONFIG
+from logger import setup_logger
 
 
 def main():
+
+    logger = setup_logger()
+
     file_path = "data/employees.csv"
 
-    df = extract_data(file_path)
+    df = extract_data(file_path, logger)
 
-    df = transform_data(df)
+    df = transform_data(df, logger)
 
-    load_data(df, DB_CONFIG)
+    load_data(df, DB_CONFIG, logger)
 
 
 if __name__ == "__main__":
